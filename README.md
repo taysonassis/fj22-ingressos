@@ -1,1 +1,3 @@
-Descrição sobre você
+
+Projeto de venda de ingressos.
+desenvolvedor: tayson.assis
