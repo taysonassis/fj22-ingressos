@@ -1,18 +1,26 @@
 package br.com.caelum.ingresso.controller;
 
-import br.com.caelum.ingresso.dao.SalaDao;
-import br.com.caelum.ingresso.model.Sala;
-import br.com.caelum.ingresso.model.form.SalaForm;
+import java.util.List;
+import java.util.Optional;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.validation.Valid;
-import java.util.Optional;
+import br.com.caelum.ingresso.dao.SalaDao;
+import br.com.caelum.ingresso.dao.SessaoDao;
+import br.com.caelum.ingresso.model.Sala;
+import br.com.caelum.ingresso.model.Sessao;
+import br.com.caelum.ingresso.model.form.SalaForm;
 
 /**
  * Created by nando on 03/03/17.
@@ -23,6 +31,8 @@ public class SalaController {
     @Autowired
     private SalaDao salaDao;
 
+    @Autowired
+    private SessaoDao sessaoDao;
 
     @GetMapping({"/admin/sala", "/admin/sala/{id}"})
     public ModelAndView form(@PathVariable("id") Optional<Integer> id, SalaForm salaForm) {
@@ -65,6 +75,7 @@ public class SalaController {
         Sala sala = salaDao.findOne(id);
 
         ModelAndView view = new ModelAndView("sessao/lista");
+        view.addObject("sessoes", sessaoDao.buscaSessoesDaSala(sala));
         view.addObject("sala", sala);
 
         return view;
