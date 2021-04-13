@@ -10,7 +10,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -31,9 +30,8 @@ public class Sessao {
     
     private BigDecimal preco = BigDecimal.ZERO;
     
-    @OneToMany
-    @JoinColumn(name="sessao")
-    private Set<Ingresso> ingressos = new HashSet<>();
+	@OneToMany(mappedBy = "sessao")
+	private Set<Ingresso> ingressos = new HashSet<>();
     
     public Sessao(){
     	

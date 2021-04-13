@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import br.com.caelum.ingresso.model.desconto.Desconto;
 
@@ -15,6 +16,7 @@ public class Ingresso {
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@ManyToOne
 	private Sessao sessao;
 	private BigDecimal preco = BigDecimal.ZERO;
 
