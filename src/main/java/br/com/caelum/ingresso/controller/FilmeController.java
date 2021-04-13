@@ -20,6 +20,8 @@ import br.com.caelum.ingresso.dao.FilmeDao;
 import br.com.caelum.ingresso.dao.SessaoDao;
 import br.com.caelum.ingresso.model.Filme;
 import br.com.caelum.ingresso.model.Sessao;
+import br.com.caelum.ingresso.rest.DetalhesDoFilme;
+import br.com.caelum.ingresso.rest.OmdbClient;
 
 /**
  * Created by nando on 03/03/17.
@@ -32,6 +34,8 @@ public class FilmeController {
     private FilmeDao filmeDao;
     @Autowired
     private SessaoDao sessaoDao;
+    @Autowired
+    private OmdbClient omdbClient;
 
 
     @GetMapping({"/admin/filme", "/admin/filme/{id}"})
@@ -94,12 +98,15 @@ public class FilmeController {
     }
 
     @GetMapping(value="/filme/{id}/detalhe")
-    public ModelAndView sessoesDoFilme(@PathVariable Integer id) {
+    public ModelAndView detalhes(@PathVariable Integer id) {
     	Filme filme = filmeDao.findOne(id);
     	List<Sessao> sessoesDoFilme = sessaoDao.buscaSessoesDoFilme(filme);
     	
+    	DetalhesDoFilme detalhes = omdbClient.buscadetalhesDoFilme(filme);
+    	
     	ModelAndView view = new ModelAndView("filme/detalhe");
     	view.addObject("sessoes", sessoesDoFilme);
+    	view.addObject("detalhes", detalhes);
     	
     	return view;
     }
