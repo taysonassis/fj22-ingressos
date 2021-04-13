@@ -1,8 +1,8 @@
 package br.com.caelum.ingresso.validacao;
 
+import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.LocalTime;
-import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -18,25 +18,25 @@ import br.com.caelum.ingresso.model.validacao.GerenciadorDeSessao;
 
 public class GerenciadorDeSessaoTest {
 
-	private  Sala sala; 
+	private Sala sala;
 	private Filme filme;
-    private Sessao sessaoDasDez;
+	private Sessao sessaoDasDez;
 	private Sessao sessaoDasTreze;
 	private Sessao sessaoDasDezoito;
-	
+
 	@Before
 	public void setup() {
-		this.sala = new Sala("Sala 3D",BigDecimal.TEN);
-		this.filme = new Filme("Rouge One", Duration.ofMinutes(120),"Aventura",BigDecimal.ONE);
-		
+		this.sala = new Sala("Sala 3D", BigDecimal.TEN);
+		this.filme = new Filme("Rouge One", Duration.ofMinutes(120), "Aventura", BigDecimal.ONE);
+
 		this.sessaoDasDez = new Sessao(LocalTime.parse("10:00:00"), filme, sala);
 		this.sessaoDasTreze = new Sessao(LocalTime.parse("13:00:00"), filme, sala);
 		this.sessaoDasDezoito = new Sessao(LocalTime.parse("18:00:00"), filme, sala);
 	}
-	
+
 	@Test
 	public void naoDevePermitirSessoesQuandoElasTerminaremNoDiaSeguinte() {
-		
+
 		Sessao sessaoQueTerminaNoDiaSeguinte = new Sessao(LocalTime.of(23, 0), filme, sala);
 		// AGIR na funcionalidade
 		GerenciadorDeSessao gerenciador = new GerenciadorDeSessao(Collections.emptyList());
@@ -44,10 +44,10 @@ public class GerenciadorDeSessaoTest {
 		// ASSEGURAR os resultados esperados
 		Assert.assertFalse(cabe);
 	}
-	
+
 	@Test
 	public void devePermitirSessoesQueTerminaNoMesmoDia() {
-		
+
 		Sessao sessao = new Sessao(LocalTime.of(19, 0), filme, sala);
 		// AGIR na funcionalidade
 		GerenciadorDeSessao gerenciador = new GerenciadorDeSessao(Collections.emptyList());
@@ -55,7 +55,7 @@ public class GerenciadorDeSessaoTest {
 		// ASSEGURAR os resultados esperados
 		Assert.assertTrue(cabe);
 	}
-	
+
 	@Test
 	public void garanteQueNaoDevePermitirSessoesTerminandoDentroDoHorarioDeUmaSessaoJaExistente() {
 		List<Sessao> sessoes = Arrays.asList(sessaoDasDez);
@@ -86,6 +86,16 @@ public class GerenciadorDeSessaoTest {
 		Sessao sessaoQueTerminaAmanha = new Sessao(LocalTime.parse("23:00:00"), filme, sala);
 		Assert.assertFalse(gerenciador.cabe(sessaoQueTerminaAmanha));
 	}
-	
-	
+
+	@Test
+	public void oPrecoDaSessaoDeveSerIgualASomaDoPrecoDaSalaMaisOPrecoDoFilme() {
+//		Sala sala = new Sala("Eldorado - IMax", new BigDecimal("22.5"));
+//		Filme filme = new Filme("Rogue One", Duration.ofMinutes(120), "SCI-FI", new BigDecimal("12.0"));
+		
+		BigDecimal somaDosPrecosDaSalaEFilme = sala.getPreco().add(filme.getPreco());
+//		Sessao sessao = new Sessao(LocalTime.parse("10:00:00"), filme, sala);
+		
+		Assert.assertEquals(somaDosPrecosDaSalaEFilme, sessaoDasDez.getPreco());
+	}
+
 }

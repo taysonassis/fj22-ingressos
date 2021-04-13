@@ -1,15 +1,18 @@
 package br.com.caelum.ingresso.model;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalTime;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
-import java.math.RoundingMode;
-import java.math.BigDecimal;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Sessao {
@@ -26,7 +29,11 @@ public class Sessao {
     @ManyToOne
     private Filme filme;
     
-    private BigDecimal preco;
+    private BigDecimal preco = BigDecimal.ZERO;
+    
+    @OneToMany
+    @JoinColumn(name="sessao")
+    private Set<Ingresso> ingressos = new HashSet<>();
     
     public Sessao(){
     	
