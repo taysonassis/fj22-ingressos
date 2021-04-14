@@ -23,7 +23,6 @@ import br.com.caelum.ingresso.model.Sala;
 import br.com.caelum.ingresso.model.Sessao;
 import br.com.caelum.ingresso.model.form.SessaoForm;
 import br.com.caelum.ingresso.model.validacao.GerenciadorDeSessao;
-import br.com.caelum.ingresso.rest.DetalhesDoFilme;
 import br.com.caelum.ingresso.rest.ImagemCapa;
 import br.com.caelum.ingresso.rest.OmdbClient;
 
@@ -75,9 +74,9 @@ public class SessaoController {
 		return formularioNovaSessao(sessaoForm.getSalaId(), sessaoForm);
 	}
 	
-	@GetMapping("/sessao/{id}/ingressos")
-	public ModelAndView lugares(@PathVariable Integer id) {
-		Sessao sessao = sessaoDao.findOne(id);
+	@GetMapping("/sessao/{id}/lugares")
+	public ModelAndView lugares(@PathVariable("id") Integer sessaoId) {
+		Sessao sessao = sessaoDao.findOne(sessaoId);
 		
 		Optional<ImagemCapa> possivelCapa = omdbClient.buscaDetalhesDoFilme(sessao.getFilme(), ImagemCapa.class);
 		
