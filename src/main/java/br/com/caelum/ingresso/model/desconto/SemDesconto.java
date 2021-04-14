@@ -10,4 +10,9 @@ public class SemDesconto implements Desconto{
 	public BigDecimal calculaPrecoFinal(Sessao sessao) {
 		return sessao.getPreco();
 	}
+
+	@Override
+	public String getDescricao() {
+		return "Normal";
+	}
 }

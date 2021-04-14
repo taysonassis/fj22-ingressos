@@ -10,4 +10,9 @@ public class DescontoParaEstudante implements Desconto{
 	public BigDecimal calculaPrecoFinal(Sessao sessao) {
 		return sessao.getPreco().multiply(new BigDecimal("0.5"));
 	}
+
+	@Override
+	public String getDescricao() {
+		return "Desconto Estudante";
+	}
 }

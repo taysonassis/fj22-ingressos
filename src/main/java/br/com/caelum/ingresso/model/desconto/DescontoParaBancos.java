@@ -10,4 +10,9 @@ public class DescontoParaBancos implements Desconto{
 	public BigDecimal calculaPrecoFinal(Sessao sessao) {
 		return sessao.getPreco().multiply(new BigDecimal("0.7"));
 	}
+
+	@Override
+	public String getDescricao() {
+		return "Desconto Banco";
+	}
 }
