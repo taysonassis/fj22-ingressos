@@ -11,14 +11,14 @@ import br.com.caelum.ingresso.model.Filme;
 @Component
 public class OmdbClient {
 
-	public Optional<DetalhesDoFilme> buscadetalhesDoFilme(Filme filme) {
+	public <T> Optional<T> buscaDetalhesDoFilme(Filme filme, Class<T> tipoDoRetorno) {
 		RestTemplate restTemplate = new RestTemplate();
-
-		String url = "http://omdb-fj22.herokuapp.com/movie?title=" + filme.getNome().replace(" ", "+");
-
+		
 		try {
-			DetalhesDoFilme detalhesDoFilme = restTemplate.getForObject(url, DetalhesDoFilme.class);
-			return Optional.ofNullable(detalhesDoFilme);
+			String url = "http://omdb-fj22.herokuapp.com/movie?title=" + filme.getNome().replace(" ", "+");
+			T detalhes = restTemplate.getForObject(url, tipoDoRetorno);
+			
+			return Optional.of(detalhes);
 		} catch (RestClientException e) {
 			return Optional.empty();
 		}

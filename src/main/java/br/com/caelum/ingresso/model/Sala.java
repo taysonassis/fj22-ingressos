@@ -83,4 +83,5 @@ public class Sala {
     public void setPreco(BigDecimal preco){
         this.preco = preco;
     }
+    
 }
