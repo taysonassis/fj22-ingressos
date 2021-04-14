@@ -1,13 +1,17 @@
 package br.com.caelum.ingresso.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.Duration;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by nando on 03/03/17.
@@ -23,7 +27,9 @@ public class Filme {
     private String genero;
     private BigDecimal preco = BigDecimal.ZERO;
     
-    
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "filme")
+    private Set<Sessao> sessoes = new HashSet<>();
+
     
     /**
      * @deprecated hibernate only
