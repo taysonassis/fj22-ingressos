@@ -20,11 +20,9 @@ public class Carrinho {
 	public BigDecimal getTotal() {
 		return ingressos.stream().map(Ingresso::getPreco).reduce(BigDecimal::add).orElse(BigDecimal.ZERO);
 	}
-	
+
 	public boolean isSelecionado(Lugar lugar) {
-		return ingressos.stream()
-		.map(Ingresso::getLugar)
-		.anyMatch(ligarDoCarrinho -> ligarDoCarrinho.equals(lugar));
+		return ingressos.stream().map(Ingresso::getLugar).anyMatch(ligarDoCarrinho -> ligarDoCarrinho.equals(lugar));
 	}
 
 	public List<Ingresso> getIngressos() {
@@ -33,5 +31,13 @@ public class Carrinho {
 
 	public void setIngressos(List<Ingresso> ingressos) {
 		this.ingressos = ingressos;
+	}
+
+	public Compra toCompra() {
+		return new Compra(ingressos);
+	}
+
+	public void limpa() {
+		this.ingressos.clear();
 	}
 }

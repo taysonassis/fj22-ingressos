@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import br.com.caelum.ingresso.dao.LugarDao;
 import br.com.caelum.ingresso.dao.SessaoDao;
+import br.com.caelum.ingresso.model.Compra;
 import br.com.caelum.ingresso.model.Ingresso;
 import br.com.caelum.ingresso.model.Lugar;
 import br.com.caelum.ingresso.model.Sessao;
