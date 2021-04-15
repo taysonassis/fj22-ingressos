@@ -36,10 +36,10 @@
 							<td class="fileira-assentos">
 							<table>
 								<tr>
-								<c:forEach var="lugar" items="${map.value}">
+								<c:forEach var="lugar" items="${map.value}"> && !carrinho.isSelecionado(lugar)
 									<td class="fileira-assento"><figure>
-										<svg onclick="${sessao.isDisponivel(lugar) ? 'changeCheckbox(this)' : '' }" 
-											class="assento ${sessao.isDisponivel(lugar) ? 'disponivel' : 'ocupado'}" 
+										<svg onclick="${sessao.isDisponivel(lugar) && !carrinho.isSelecionado(lugar) ? 'changeCheckbox(this)' : '' }" 
+											class="assento ${sessao.isDisponivel(lugar) && !carrinho.isSelecionado(lugar) ? 'disponivel' : 'ocupado'}" 
 											data-lugar="${lugar}" id="${lugar.id}"  version="1.0" id="SEAT" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 												 viewBox="0 0 318.224 305.246" enable-background="new 0 0 318.224 305.246" xml:space="preserve">
 											<g id="FILL">

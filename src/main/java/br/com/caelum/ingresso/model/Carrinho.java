@@ -20,6 +20,12 @@ public class Carrinho {
 	public BigDecimal getTotal() {
 		return ingressos.stream().map(Ingresso::getPreco).reduce(BigDecimal::add).orElse(BigDecimal.ZERO);
 	}
+	
+	public boolean isSelecionado(Lugar lugar) {
+		return ingressos.stream()
+		.map(Ingresso::getLugar)
+		.anyMatch(ligarDoCarrinho -> ligarDoCarrinho.equals(lugar));
+	}
 
 	public List<Ingresso> getIngressos() {
 		return ingressos;
