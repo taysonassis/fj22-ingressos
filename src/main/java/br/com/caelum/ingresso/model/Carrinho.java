@@ -13,7 +13,7 @@ public class Carrinho {
 	private List<Ingresso> ingressos = new ArrayList<>();
 	
 	public void add(Ingresso ingresso) {
-		
+		ingressos.add(ingresso);
 	}
 
 	public List<Ingresso> getIngressos() {

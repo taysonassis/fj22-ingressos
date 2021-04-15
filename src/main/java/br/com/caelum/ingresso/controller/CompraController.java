@@ -22,8 +22,10 @@ public class CompraController {
 
 	@PostMapping("/compra/ingressos")
 	public ModelAndView enviarParaPagamento(CarrinhoForm carrinhoForm) {
+		
 		ModelAndView modelAndView = new ModelAndView("redirect:/compra");
 		carrinhoForm.toIngressos(sessaoDao, lugarDao).forEach(carrinho::add);
+		
 		return modelAndView;
 	}
 }
